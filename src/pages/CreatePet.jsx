@@ -1,4 +1,6 @@
 import {useState} from 'react'
+import axios from 'axios'
+import {useNavigate} from 'react-router'
 
 function CreatePet() {
     const [formData,setFormData] = useState({
@@ -7,9 +9,21 @@ function CreatePet() {
         breed:""
     })
 
+    const navigate = useNavigate()
 
-    function handleSubmit(e){
+
+    async function handleSubmit(e){
         e.preventDefault()
+        console.log(formData)
+
+        await axios.post(`${import.meta.env.VITE_BACKEND_URL}/pets`,formData)
+
+        navigate("/pets")
+        setFormData({
+            name:"",
+            age:0,
+            breed:""
+        })
     }
 
     function handleChange(e){
@@ -36,6 +50,7 @@ function CreatePet() {
                 name='age' 
                 value={formData.age}
                 onChange={handleChange}
+                min={0}
 
 
                  />
