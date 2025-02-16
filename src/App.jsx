@@ -5,6 +5,7 @@ import PetDetails from './pages/PetDetails'
 import CreatePet from './pages/CreatePet'
 import Navbar from './components/Navbar'
 import PageNotFound from './pages/PageNotFound'
+import UpdatePet from './pages/UpdatePet'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
       <Route path="/pets" element = {<AllPets/>}/>
       <Route path="/pets/:id" element={<PetDetails/>}/>
       <Route path="/pets/create" element={<CreatePet/>}/>
+      <Route path="/pets/:id/update" element = {<UpdatePet/>}/>
       <Route path='*' element={<PageNotFound/>}/>
      </Routes>
     </>

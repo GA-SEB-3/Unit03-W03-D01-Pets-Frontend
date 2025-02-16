@@ -1,24 +1,36 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import axios from 'axios'
-import {useNavigate} from 'react-router'
-import { createPet } from '../services/petService'
+import { useNavigate, useParams } from 'react-router'
+import { getOne, updatePet } from '../services/petService'
 
-function CreatePet() {
+function UpdatePet() {
     const [formData,setFormData] = useState({
-        name:"",
-        age:0,
-        breed:""
-    })
+            name:"",
+            age:0,
+            breed:""
+        })
 
+    const {id} = useParams()
     const navigate = useNavigate()
 
+    async function getPetInfo(){
+        const foundPet = await getOne(id)
+        setFormData(foundPet)
+    }
 
+    useEffect(()=>{getPetInfo()},[])
+
+    function handleChange(e){
+        setFormData({...formData, [e.target.name]:e.target.value})
+    }
+
+
+    
     async function handleSubmit(e){
         e.preventDefault()
         console.log(formData)
 
-        await createPet(formData)
-
+        await updatePet(id,formData)
         navigate("/pets")
         setFormData({
             name:"",
@@ -26,17 +38,10 @@ function CreatePet() {
             breed:""
         })
     }
-
-    function handleChange(e){
-        setFormData({...formData, [e.target.name]:e.target.value})
-    }
   return (
     <div>
-      <h1>Create New Pet</h1>
-
       <form onSubmit={handleSubmit}>
-
-        <label htmlFor="name">Name:</label>
+      <label htmlFor="name">Name:</label>
         <input
          type="text"
          id='name'
@@ -72,4 +77,4 @@ function CreatePet() {
   )
 }
 
-export default CreatePet
+export default UpdatePet

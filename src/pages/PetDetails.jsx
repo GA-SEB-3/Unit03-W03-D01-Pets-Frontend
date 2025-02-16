@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router'
 import axios from 'axios'
+import { getOne,deleteOnePet } from '../services/petService'
 
 // exercise 1:
 //          1. make the axios call in the useEffect to get the one pet and set the state
@@ -14,14 +15,14 @@ function PetDetails() {
     const navigate = useNavigate()
 
     async function getPet(){
-        const petData = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/pets/${id}`)
-        console.log(petData.data)
-        setPet(petData.data)
+        const petData = await getOne(id)
+        console.log(petData)
+        setPet(petData)
 
     }
 
     async function deletePet(){
-        await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/pets/${id}`)
+        await deleteOnePet(id)
         navigate("/pets")
     }
 

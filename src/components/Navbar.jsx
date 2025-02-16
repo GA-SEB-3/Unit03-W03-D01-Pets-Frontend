@@ -7,6 +7,7 @@ function Navbar() {
       <ul>
         <li><Link to="/pets/create">Create New Pet</Link></li>
         <li><Link to="/pets">All Pets</Link></li>
+
       </ul>
     </div>
   )
