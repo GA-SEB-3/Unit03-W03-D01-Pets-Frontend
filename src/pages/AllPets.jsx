@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react'
 import axios from 'axios'
+import { Link } from 'react-router'
 /* 
 Steps:
         1. In the useEffect make the axios call to get the pets
@@ -10,7 +11,7 @@ function AllPets() {
     const [pets,setPets] = useState([])
 
     async function getAllPets(){
-        const fetchedPets = await axios.get("http://localhost:3000/pets")
+        const fetchedPets = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/pets`)
         console.log(fetchedPets.data)
         setPets(fetchedPets.data)
     }
@@ -24,8 +25,9 @@ function AllPets() {
       <h1>All Pets</h1>
 
       {pets.map((onePet)=>
-      <div>
+      <div key={onePet._id}>
         <h3>Name: {onePet.name}</h3>
+        <button><Link to={`/pets/${onePet._id}`}>See Pet Details</Link></button>
       </div>
     )}
     </div>
